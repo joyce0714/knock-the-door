@@ -310,7 +310,7 @@ body {
     height: 450px;
     max-width: 90vw;
     max-height: 80vh;
-    background-image: url('https://i.meee.com.tw/GVvVyXn.webp');
+    background-image: url('https://i.meee.com.tw/YEDheTV.webp');
     background-size: 100% 100%;
     background-repeat: no-repeat;
     z-index: 2;
@@ -327,7 +327,7 @@ body {
     transform: translateX(-65%);
     width: 160px;
     height: 170px;
-    background-image: url('https://i.meee.com.tw/lVKO26G.webp');
+    background-image: url('https://i.meee.com.tw/RapHVGZ.webp');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -443,7 +443,7 @@ body {
     
   
     .door-container {
-        top: max(8vh, 40px);
+        top: max(6vh, 40px);
     }
     
     .door-image {
@@ -540,10 +540,13 @@ body {
         border: 1px solid #808080;
         padding: min(4px, 1vw);
         font-family: 'Noto Sans TC', Arial, sans-serif;
-        font-size: max(10px, min(10px, 2vw));
+        font-size: 11px;
         resize: none;
         box-sizing: border-box;
         transform: translateX(-29%);
+        -webkit-text-size-adjust: 100%; /* 防止文字自動縮放 */
+        -webkit-user-select: text; /* 允許文字選取 */
+        user-select: text;
     }
 
     .story-textarea:focus {
@@ -580,7 +583,7 @@ body {
     .popup-window-frame {
         width: 80vw;
         height: 100vh;
-        background-image: url('https://i.meee.com.tw/AcaJwzW.webp');
+        background-image: url('https://i.meee.com.tw/SJdzJAL.webp');
         padding: 28px 6px 6px 6px;
     }
     
@@ -592,8 +595,8 @@ body {
     }
     
     .popup-phone-overlay {
-        width: 280px;
-        height: 150px;
+        width: 250px;
+        height: 120px;
         bottom: 50%;
         left: 10%;
         background-image: url('https://i.meee.com.tw/WRr2gEt.webp');
@@ -628,7 +631,7 @@ body {
     }
     
     .close-button-img {
-        height: 35px;
+        height: 27px;
     }
 }
 
@@ -722,7 +725,7 @@ body {
     }
     
     .popup-phone-overlay {
-        width: 260px; /* 稍微縮小 */
+        width: 240px; /* 稍微縮小 */
         height: 140px;
         bottom: 48%;
         left: 8%;
@@ -749,6 +752,36 @@ body {
     }
     
     .close-button-img {
-        height: 32px; /* 稍微縮小 */
+        height: 30px; /* 稍微縮小 */
+    }
+}
+
+/* 防止手機自動放大和啟用縮放功能 */
+input, textarea, select {
+    font-size: 16px !important; /* iOS Safari 需要至少 16px 才不會自動放大 */
+    -webkit-text-size-adjust: 100%;
+    -webkit-user-select: text;
+    user-select: text;
+}
+
+/* 確保頁面可以縮放 */
+html {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+body {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    /* 允許用戶縮放 */
+    touch-action: manipulation;
+}
+
+/* 特別針對極小螢幕 */
+@media only screen and (max-width: 375px) {
+    .story-textarea {
+        font-size: 16px !important; /* 確保不會自動放大 */
     }
 }
