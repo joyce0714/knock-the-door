@@ -632,18 +632,123 @@ body {
     }
 }
 
-/* 極小螢幕調整 */
+/* 極小螢幕調整 - 保守優化版 */
 @media only screen and (max-width: 375px) {
+    /* 門容器微調 - 稍微向上移動釋放空間 */
     .door-container {
-        top: 12vh;
+        top: 10vh; /* 從 12vh 改為 10vh */
     }
     
+    /* 門圖片微調 - 稍微縮小 */
     .door-image {
-        width: min(200px, 55vw);
+        width: min(180px, 50vw); /* 從 200px/55vw 改為 180px/50vw */
+        height: auto;
     }
     
+    /* 對話視窗優化 - 保持你的設計風格 */
     .dialog-window {
-        bottom: 2vh;
-        height: min(300px, 42vh);
+        bottom: 2vh; /* 保持原本的位置 */
+        height: min(280px, 38vh); /* 從 300px/42vh 稍微縮小到 280px/38vh */
+        width: min(495px, 92vw); /* 新增：稍微增加寬度利用空間 */
+    }
+    
+    /* 對話內容區域調整 */
+    .dialog-content {
+        width: 85%; /* 稍微增加寬度 */
+        height: 80%;
+        margin-top: 6%; /* 稍微減少上邊距 */
+        transform: translateX(10%); /* 稍微調整位置 */
+    }
+    
+    /* 頭像區域微調 */
+    .character-avatar {
+        width: 100%; /* 稍微縮小 */
+        height: 100%;
+        margin-left: -35px; /* 調整位置 */
+    }
+    
+    /* 文字區域優化 */
+    .dialog-text {
+        font-size: min(11px, 2.2vw); /* 從 10px/2.3vw 稍微放大到 11px/2.2vw */
+        line-height: 1.35; /* 稍微縮小行高 */
+        margin-bottom: min(5px, 1vh); /* 減少下邊距 */
+    }
+    
+    .dialog-text p {
+        margin-bottom: min(5px, 0.8vh); /* 減少段落間距 */
+        margin-left: min(-20px, 2vh); /* 稍微調整左邊距 */
+    }
+    
+    /* 輸入框調整 */
+    .story-textarea {
+        width: 118%; /* 稍微縮小寬度 */
+        height: min(28px, 10vh); /* 稍微縮小高度 */
+        padding: min(6px, 1vw); /* 調整內邊距 */
+        font-size: max(9px, min(9px, 2.2vw)); /* 稍微縮小字體 */
+        transform: translateX(-28%); /* 調整位置 */
+    }
+    
+    /* 按鈕區域調整 */
+    .button-section {
+        gap: min(6px, 1.2vw); /* 稍微縮小間距 */
+        margin-bottom: min(6px, 1.2vh); /* 減少下邊距 */
+        transform: translateX(-18px); /* 稍微調整位置 */
+    }
+    
+    .dialog-button-img {
+        height: min(22px, 6vh); /* 稍微縮小按鈕 */
+        margin-left: min(2px, 0.5vw); /* 調整間距 */
+    }
+    
+    /* 條件文字調整 */
+    .condition-text {
+        font-size: min(12px, 2vw); /* 稍微縮小字體 */
+        line-height: 1.8; /* 縮小行高 */
+        transform: translateX(-25%); /* 調整位置 */
+    }
+    
+    /* 留言彈窗在極小螢幕的調整 */
+    .popup-window-frame {
+        width: 85vw; /* 稍微增加寬度 */
+        height: 95vh; /* 稍微縮小高度 */
+        padding: 24px 4px 4px 4px; /* 調整內邊距 */
+    }
+    
+    .popup-manager-overlay {
+        width: 130px; /* 稍微縮小 */
+        height: 65px;
+        left: 38%;
+        top: 6%;
+    }
+    
+    .popup-phone-overlay {
+        width: 260px; /* 稍微縮小 */
+        height: 140px;
+        bottom: 48%;
+        left: 8%;
+    }
+    
+    .popup-comments-area {
+        bottom: 12%;
+        left: 8%;
+        width: 84%;
+        height: 36%;
+    }
+    
+    .comments-list {
+        font-size: 10px; /* 稍微縮小字體 */
+        padding: 6px; /* 調整內邊距 */
+    }
+    
+    .comment-nickname {
+        font-size: 11px;
+    }
+    
+    .comment-content {
+        font-size: 10px;
+    }
+    
+    .close-button-img {
+        height: 32px; /* 稍微縮小 */
     }
 }
