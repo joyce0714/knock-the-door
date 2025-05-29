@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>第一階段V2</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=5.0, minimum-scale=0.5">
+    <title>微醺大飯店</title>
+</head>
+<body>
+    <!-- 第一個畫面：入站圖 -->
+    <div class="tv-screen" id="tvScreen">
+        <img src="https://i.meee.com.tw/XhcQZA9.webp" alt="入站圖" class="entrance-image" id="entranceImage">
+    </div>
+    
+    <!-- 第二個畫面：主要內容 -->
+    <div class="main-screen" id="mainScreen" style="display: none;">
+        <!-- 背景 -->
+        <div class="background"></div>
+        
+        <!-- 門的圖片 -->
+        <div class="door-container">
+            <img src="https://i.meee.com.tw/l6LJoy6.webp" 
+                 alt="微醺大飯店大門" 
+                 class="door-image" 
+                 id="doorImage"
+                 data-static="https://i.meee.com.tw/l6LJoy6.webp"
+                 data-static-mobile="https://i.meee.com.tw/bkzauNR.webp"
+                 data-animated-desktop="https://i.meee.com.tw/RZ76tn1.gif"
+                 data-animated-mobile="https://i.meee.com.tw/RZ76tn1.gif">
+        </div>
+            
+        <!-- Windows 對話視窗 -->
+        <div class="dialog-window">
+            <div class="dialog-header">
+                <span class="dialog-title">KNOCK THE DOOR</span>
+                <button class="dialog-close">×</button>
+            </div>
+            <div class="dialog-content">
+                <div class="dialog-left">
+                    <div class="character-avatar">
+                        <img src="https://i.meee.com.tw/xqSgD5F.webp" alt="管家頭像" class="avatar-image" id="avatarImage">
+                    </div>
+                </div>
+                <div class="dialog-right">
+                    <div class="dialog-text">
+                        <p>Hi，我是微醺管家，大門即將開啟。</p>
+                        <p>我很好奇，</p>
+                        <p><strong>「如果這扇門可以通往任何地方，你會想去哪呢？」</strong></p>
+                        <p><em>那是哪裡？那是怎樣的一天？有誰在門後嗎？你會想說些什麼呢？</em></p>
+                        <p>寫下來吧，然後敲敲門送出，</p>
+                        <p>或許門後的世界，並沒有那麼遙遠。</p>
+                        <p></p>
+                        <p>See you soon.</p>
+                    </div>
+                    <div class="input-section">
+                        <textarea id="storyInput" placeholder="那天是 █ 月 █ 日........." class="story-textarea"></textarea>
+                    </div>
+                    <div class="button-section">
+                        <img src="https://i.meee.com.tw/cW8x83L.webp" alt="敲門" class="dialog-button-img" id="knockButtonImg" onclick="knockDoor()">
+                        <img src="https://i.meee.com.tw/eje92xz.webp" alt="查看房客留言" class="dialog-button-img" id="viewCommentsButtonImg" onclick="showComments()">
+                    </div>
+                    <div class="condition-text">
+                        當 <strong>2425</strong> 人在 <strong>6/4</strong> 前回答問題並敲響大門，我，會再次出現
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 滿版GIF播放容器 -->
+    <div class="fullscreen-gif-container" id="fullscreenGifContainer">
+        <img src="" alt="門動畫" class="gif-image" id="fullscreenGifImage">
+    </div>
+    
+    <!-- 房客留言彈出視窗 -->
+    <div class="comments-popup" id="commentsPopup" style="display: none;">
+        <div class="popup-window">
+            <!-- 第一層：背景毛玻璃 -->
+            <div class="popup-bg-blur"></div>
+            
+            <!-- 第二層：視窗框架 -->
+            <div class="popup-window-frame">
+                <!-- 第三層：管家頭像文字覆蓋層 -->
+                <div class="popup-manager-overlay"></div>
+                
+                <!-- 第四層：電話插圖 - 改為div使用背景圖片 -->
+                <div class="popup-phone-overlay"></div>
+                
+                <!-- 第五層：留言區域 -->
+                <div class="popup-comments-area">
+                    <div class="comments-list" id="commentsList">
+                        <div class="empty-message">還沒有房客留言...</div>
+                    </div>
+                </div>
+                
+                <!-- 第六層：關閉按鈕 -->
+                <div class="popup-footer">
+                    <img src="https://i.meee.com.tw/cP4tCTA.webp" alt="關閉視窗" class="close-button-img" id="closeButtonImg" onclick="closeComments()">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>

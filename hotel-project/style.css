@@ -1,0 +1,649 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;900&family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap');
+
+body {
+    font-family: 'Microsoft Sans Serif', 'Noto Sans TC', Arial, sans-serif;
+    overflow: hidden;
+    background: #000;
+    min-height: 600px;
+}
+
+/* 第一個畫面：入站圖 */
+.tv-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
+}
+
+.entrance-image {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+}
+
+/* 第二個畫面：主要內容 */
+.main-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.main-screen.fade-in {
+    opacity: 1;
+}
+
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://i.meee.com.tw/Zc98843.webp');
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+}
+
+/* 門的圖片 - 調整尺寸 */
+.door-container {
+    position: absolute;
+    top: max(3vh, 20px);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+.door-image {
+    width: min(280px, 20vw);
+    height: auto;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+/* 滿版GIF播放容器 - 修改：移除動畫效果 */
+.fullscreen-gif-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.3);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    cursor: pointer;
+    /* 移除所有 transition 屬性 */
+}
+
+.fullscreen-gif-container .gif-image {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+}
+
+/* Windows 對話視窗 - 響應式設計 */
+.dialog-window {
+    position: absolute;
+    bottom: max(3vh, 20px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(640px, 90vw);
+    height: clamp(400px, 40vh, 420px);
+    background-image: url('https://i.meee.com.tw/RdgO6Av.webp');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 10;
+    font-family: 'Microsoft Sans Serif', Arial, sans-serif;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+
+.dialog-content {
+    width: 90%;
+    height: 80%;
+    display: flex;
+    gap: min(12px, 2vw);
+    background: transparent;
+    box-sizing: border-box;
+    align-items: flex-start;
+    margin-top: 8%;
+    transform: translateX(12%);
+}
+
+.dialog-left {
+    flex-shrink: 0;
+    width: min(64px, 12vw);
+    height: min(80px, 12vw);
+}
+
+.character-avatar {
+    width: 120%;
+    height: 120%;
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    overflow: hidden;
+    margin-left: -40px;
+}
+
+.avatar-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.dialog-right {
+    flex: 1;
+    min-width: 0;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.dialog-text {
+    font-family: 'Noto Sans TC', Arial, sans-serif;
+    font-size: min(12px, 1vw);
+    line-height: 1.4;
+    word-wrap: break-word;
+    margin-bottom: min(10px, 2vh);
+}
+
+.dialog-text p {
+    margin-bottom: min(6px, 1vh);
+}
+
+.input-section {
+    margin-bottom: min(15px, 2vh);
+}
+
+.story-textarea {
+    width: 120%;
+    height: min(50px, 12vh);
+    border: 1px solid #808080;
+    padding: min(10px, 1vw);
+    font-family: 'Noto Sans TC', Arial, sans-serif;
+    font-size: max(12px, min(12px, 3vw));
+    resize: none;
+    box-sizing: border-box;
+    transform: translateX(-26%);
+}
+
+.story-textarea:focus {
+    outline: 1px solid #0054e3;
+}
+
+.button-section {
+    display: flex;
+    gap: min(8px, 1.5vw);
+    margin-bottom: min(8px, 1.5vh);
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.dialog-button-img {
+    height: min(40px, 8vh);
+    width: auto;
+    cursor: pointer;
+    transition: all 0.1s ease;
+    margin-right: min(8px, 1.5vw);
+}
+
+.condition-text {
+    font-size: min(12px, 1.8vw);
+    color: #443c3c;
+    font-family: 'Noto Sans TC', Arial, sans-serif;
+    text-align: center;
+    word-wrap: break-word;
+    line-height: 2;
+    transform: translateX(-22%);
+}
+
+/* 通用按鍵和圖片樣式 */
+.dialog-button-img:hover {
+    transform: scale(1.02);
+    filter: brightness(1.1);
+}
+
+.dialog-button-img:active {
+    transform: scale(0.98);
+    filter: brightness(0.9);
+}
+
+.dialog-button-img.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.close-button-img {
+    height: min(50px, 4vh);
+    width: auto;
+    cursor: pointer;
+    transition: all 0.1s ease;
+}
+
+.close-button-img:hover {
+    transform: scale(1.02);
+    filter: brightness(1.1);
+}
+
+.close-button-img:active {
+    transform: scale(0.98);
+    filter: brightness(0.9);
+}
+
+.dialog-header {
+    display: none;
+}
+
+.condition-text strong {
+    font-weight: bold;
+}
+
+/* 留言彈出視窗 - 重新設計 */
+.comments-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+}
+
+.popup-window {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+
+/* 第一層：背景毛玻璃 - 滿版 */
+.popup-bg-blur {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://i.meee.com.tw/gORhcmD.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+/* 第二層：視窗框架 - 居中的Windows視窗 */
+.popup-window-frame {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 450px;
+    max-width: 90vw;
+    max-height: 80vh;
+    background-image: url('https://i.meee.com.tw/GVvVyXn.webp');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    padding: 32px 8px 8px 8px;
+}
+
+/* 第三層：管家頭像文字覆蓋層 - 在視窗框架內 */
+.popup-manager-overlay {
+    position: absolute;
+    top: 8%;
+    left: 68%;
+    transform: translateX(-65%);
+    width: 160px;
+    height: 170px;
+    background-image: url('https://i.meee.com.tw/lVKO26G.webp');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 3;
+}
+
+/* 第四層：電話插圖 - 在視窗框架內左下角 */
+.popup-phone-overlay {
+    position: absolute;
+    bottom: 18%;
+    left: 4%;
+    width: 250px;
+    height: 300px;
+    background-image: url('https://i.meee.com.tw/NS9Zxqe.webp');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 4;
+}
+
+/* 第五層：留言區域 - 在視窗框架內 */
+.popup-comments-area {
+    position: absolute;
+    bottom: 20%;
+    left: 50%;
+    width: 45%;
+    height: 40%;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+}
+
+.popup-title {
+    display: none;
+}
+
+.comments-list {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px inset #c0c0c0;
+    overflow-y: auto;
+    padding: 10px;
+    font-size: 12px;
+    font-family: 'Noto Sans TC', Arial, sans-serif;
+}
+
+.comment-item {
+    margin-bottom: 5px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.comment-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.comment-nickname {
+    font-weight: bold;
+    color: #4c4343;
+    margin-bottom: 4px;
+    font-size: 12px;
+}
+
+.comment-content {
+    line-height: 1.4;
+    white-space: pre-wrap;
+    color: #000;
+    font-size: 12px;
+}
+
+.empty-message {
+    text-align: center;
+    color: #808080;
+    font-style: italic;
+    padding: 20px;
+    font-size: 12px;
+}
+
+/* 第六層：關閉按鈕 - 在視窗框架底部置中 */
+.popup-footer {
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 6;
+}
+
+/* 桌面版滾動條美化 */
+.comments-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.comments-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.comments-list::-webkit-scrollbar-thumb {
+    background: #5B7BD4;
+    border-radius: 4px;
+}
+
+.comments-list::-webkit-scrollbar-thumb:hover {
+    background: #4968C0;
+}
+
+/* 手機版響應式調整 */
+@media only screen and (max-width: 768px) {
+    
+  body {
+        min-height: 500px; /* 這個只影響手機版，會覆蓋上面的 600px */
+    }
+    
+  
+    .door-container {
+        top: max(8vh, 40px);
+    }
+    
+    .door-image {
+        width: min(180px, 60vw);
+    }
+    
+    .dialog-window {
+        position: absolute;
+        bottom: 8vh;
+        left: 50%;
+        transform: translateX(-50%);
+        width: min(495px, 90vw);
+        height: clamp(300px, 42vh, 455px);
+        background-image: url('https://i.meee.com.tw/83CYVJP.webp');
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        z-index: 10;
+        font-family: 'Microsoft Sans Serif', Arial, sans-serif;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+    }
+
+    .dialog-content {
+        width: 80%;
+        height: 80%;
+        display: flex;
+        gap: min(12px, 2vw);
+        background: transparent;
+        box-sizing: border-box;
+        align-items: flex-start;
+        margin-top: 6%;
+        transform: translateX(12%);
+    }
+
+    .dialog-left {
+        flex-shrink: 0;
+        width: min(64px, 12vw);
+        height: min(80px, 12vw);
+    }
+
+    .character-avatar {
+        width: 110%;
+        height: 110%;
+        background: transparent;
+        border: none;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        overflow: hidden;
+        margin-left: -30px;
+    }
+
+    .avatar-image {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .dialog-right {
+        flex: 1;
+        min-width: 0;
+        height: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .dialog-text {
+        font-family: 'Noto Sans TC', Arial, sans-serif;
+        font-size: min(10px, 2.3vw);
+        line-height: 1.4;
+        word-wrap: break-word;
+        margin-bottom: min(0px, 2vh);
+        margin-right: min(10px, 2vh);
+    }
+
+    .dialog-text p {
+        margin-bottom: min(6px, 1vh);
+        margin-left: min(-22px, 2.5vh);
+    }
+
+    .input-section {
+        margin-bottom: min(10px, 2vh);
+    }
+
+    .story-textarea {
+        width: 120%;
+        height: min(30px, 12vh);
+        border: 1px solid #808080;
+        padding: min(4px, 1vw);
+        font-family: 'Noto Sans TC', Arial, sans-serif;
+        font-size: max(10px, min(10px, 2vw));
+        resize: none;
+        box-sizing: border-box;
+        transform: translateX(-29%);
+    }
+
+    .story-textarea:focus {
+        outline: 1px solid #0054e3;
+    }
+
+    .button-section {
+        display: flex;
+        gap: min(8px, 1.5vw);
+        margin-bottom: min(4px, 1.5vh);
+        flex-wrap: wrap;
+        align-items: center;
+        transform: translateX(-20px)
+    }
+
+    .dialog-button-img {
+        height: min(25px, 8vh);
+        width: auto;
+        cursor: pointer;
+        transition: all 0.1s ease;
+        margin-left: min(0px, 1vw);
+    }
+
+    .condition-text {
+        font-size: min(13px, 1.8vw);
+        color: #443c3c;
+        font-family: 'Noto Sans TC', Arial, sans-serif;
+        text-align: center;
+        word-wrap: break-word;
+        line-height: 2;
+        transform: translateX(-27%);
+    }
+
+    .popup-window-frame {
+        width: 80vw;
+        height: 100vh;
+        background-image: url('https://i.meee.com.tw/AcaJwzW.webp');
+        padding: 28px 6px 6px 6px;
+    }
+    
+    .popup-manager-overlay {
+        width: 150px;
+        height: 75px;
+        left: 40%;
+        top: 8%;
+    }
+    
+    .popup-phone-overlay {
+        width: 280px;
+        height: 150px;
+        bottom: 50%;
+        left: 10%;
+        background-image: url('https://i.meee.com.tw/WRr2gEt.webp');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    
+    .popup-comments-area {
+        bottom: 15%;
+        left: 10%;
+        width: 80%;
+        height: 35%;
+    }
+    
+    .comments-list {
+        font-size: 11px;
+        padding: 8px;
+    }
+    
+    .comment-nickname {
+        font-size: 12px;
+    }
+    
+    .comment-content {
+        font-size: 11px;
+    }
+    
+    .popup-footer {
+        bottom: 5%;
+        right: 25%;
+    }
+    
+    .close-button-img {
+        height: 35px;
+    }
+}
+
+/* 極小螢幕調整 */
+@media only screen and (max-width: 375px) {
+    .door-container {
+        top: 12vh;
+    }
+    
+    .door-image {
+        width: min(200px, 55vw);
+    }
+    
+    .dialog-window {
+        bottom: 2vh;
+        height: min(300px, 42vh);
+    }
+}
