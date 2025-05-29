@@ -118,7 +118,7 @@ function playFullscreenGif() {
         
         // 預估 GIF 播放時間（根據你的 GIF 實際長度調整）
         // 如果你的 GIF 是 3 秒，就設定 3000ms
-        const gifDuration = 8000; // 3秒，請根據你的 GIF 實際長度調整
+        const gifDuration = 7900; // 3秒，請根據你的 GIF 實際長度調整
         
         setTimeout(() => {
             closeFullscreenGif();
@@ -340,8 +340,11 @@ function switchToDesktopImages() {
 }
 
 // 處理觸控事件優化
+// 處理觸控事件優化 - 修正版
 function initTouchEvents() {
-    // 防止雙擊縮放
+    // 移除防止雙擊縮放的程式碼，允許正常縮放
+    // 以下程式碼已註解掉
+    /*
     let lastTouchEnd = 0;
     document.addEventListener('touchend', function(event) {
         const now = (new Date()).getTime();
@@ -350,8 +353,9 @@ function initTouchEvents() {
         }
         lastTouchEnd = now;
     }, false);
+    */
     
-    // 改善按鍵觸控體驗
+    // 改善按鍵觸控體驗（保留這部分）
     const imageButtons = document.querySelectorAll('.dialog-button-img, .close-button-img');
     imageButtons.forEach(button => {
         button.addEventListener('touchstart', function() {
@@ -369,6 +373,7 @@ function initTouchEvents() {
 }
 
 // 優化滾動體驗
+// 優化滾動體驗 - 修正版
 function initScrollOptimization() {
     const commentsList = document.getElementById('commentsList');
     if (commentsList) {
@@ -377,39 +382,44 @@ function initScrollOptimization() {
         commentsList.style.overflowScrolling = 'touch';
     }
     
-    // 防止整個頁面滾動
+    // 只阻止非必要區域的滾動，但允許縮放
     document.body.addEventListener('touchmove', function(e) {
-        // 只允許留言列表內部滾動
-        if (!e.target.closest('.comments-list')) {
+        // 檢查是否為縮放手勢（多點觸控）
+        if (e.touches.length > 1) {
+            return; // 允許縮放手勢
+        }
+        
+        // 只允許留言列表和輸入框內部滾動
+        if (!e.target.closest('.comments-list') && !e.target.closest('.story-textarea')) {
             e.preventDefault();
         }
     }, { passive: false });
 }
-
-// 處理虛擬鍵盤
+// 處理虛擬鍵盤 - 修正版
 function handleVirtualKeyboard() {
     const storyTextarea = document.getElementById('storyInput');
     if (!storyTextarea) return;
     
     storyTextarea.addEventListener('focus', function() {
-        // 防止iOS自動縮放到輸入框
-        this.style.fontSize = '16px';
+        // 移除強制字體大小設定，防止自動放大
+        // this.style.fontSize = '16px'; // 刪除這行
         
-        // 虛擬鍵盤出現時調整位置
+        // 虛擬鍵盤出現時的處理，但不調整整體縮放
         setTimeout(() => {
             const dialogWindow = document.querySelector('.dialog-window');
             if (dialogWindow && window.innerHeight < 500) {
-                dialogWindow.style.bottom = '2px';
+                // 僅調整位置，不影響縮放
+                dialogWindow.style.transform = 'translateX(-50%) translateY(-10px)';
             }
         }, 300);
     });
     
     storyTextarea.addEventListener('blur', function() {
-        // 虛擬鍵盤隱藏時恢復
+        // 虚擬鍵盤隱藏時恢復
         setTimeout(() => {
             const dialogWindow = document.querySelector('.dialog-window');
             if (dialogWindow) {
-                dialogWindow.style.bottom = '';
+                dialogWindow.style.transform = 'translateX(-50%)';
             }
         }, 300);
     });
