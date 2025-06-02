@@ -876,7 +876,7 @@ body {
     /* 第一個播放器 */
     .dot-audio-item:nth-child(1) {
         margin-top: 15px !important;
-        margin-left: 10px !important; /* 靠左一點 */
+        margin-left: 20px !important; /* 靠左一點 */
         margin-right: auto !important;
     }
     
@@ -1217,6 +1217,13 @@ body {
         width: min(180px, 50vw); /* 從 200px/55vw 改為 180px/50vw */
         height: auto;
     }
+
+      .intro-popup-container {
+        width: 90vw;
+        height: auto;
+        max-width: 200px;
+        max-height: 50vh;
+    }
     
     .intro-close-section {
         position: relative;
@@ -1231,7 +1238,7 @@ body {
     
   
     .intro-close-button-img {
-        height: 30px;
+        height: 20px;
         width: auto;
         cursor: pointer;
         transition: all 0.2s ease;
