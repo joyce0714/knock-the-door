@@ -845,7 +845,7 @@ body {
 /* === 保留第一版精確的手機版響應式調整 === */
 @media only screen and (max-width: 768px) {
     .dot-youtube-container {
-        width: 10%; /* 手機版稍微寬一點 */
+        width: 100%; /* 手機版稍微寬一點 */
         max-width: 370px; /* 手機版最大寬度 */
     }
     
