@@ -890,8 +890,12 @@ body {
     }
     
     .dot-youtube-container {
-        width: 100%; /* 手機版稍微寬一點 */
-        max-width: 370px; /* 手機版最大寬度 */
+        width: 95% !important;
+        max-width: 400px !important;
+        padding: 15px !important;
+        background: rgba(255, 0, 0, 0.8) !important; /* 臨時紅色背景用於調試 */
+        border: 3px solid yellow !important; /* 臨時邊框用於調試 */
+        min-height: 150px !important; /* 確保有高度 */
     }
     
     .dot-content-invisible-close {
