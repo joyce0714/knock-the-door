@@ -893,9 +893,15 @@ body {
         width: 95% !important;
         max-width: 400px !important;
         padding: 15px !important;
-        background: rgba(255, 0, 0, 0.8) !important; /* 臨時紅色背景用於調試 */
-        border: 3px solid yellow !important; /* 臨時邊框用於調試 */
-        min-height: 150px !important; /* 確保有高度 */
+        background: rgba(0, 0, 0, 0.8) !important; /* 移除紅色，恢復黑色半透明 */
+        border: none !important; /* 移除黃色邊框 */
+        min-height: auto !important; /* 移除固定高度 */
+        aspect-ratio: 16/9; /* 保持 16:9 比例 */
+    }
+    
+    .simple-play-button svg {
+        width: 50px;
+        height: 36px;
     }
     
     .dot-content-invisible-close {
@@ -1225,15 +1231,64 @@ body {
 }
 
 @media only screen and (max-width: 375px) {
+    .dot-youtube-container {
+        width: 90% !important;
+        max-width: 350px !important;
+        padding: 12px !important;
+        background: rgba(0, 0, 0, 0.8) !important;
+        border: none !important;
+    }
+    
     .simple-play-button svg {
         width: 45px;
         height: 32px;
-    }
-  
-    .dot-youtube-container {
-        width: 95%;
-        max-width: 300px;
-    }
+
+   /* === YouTube 縮圖容器樣式 === */
+   .simple-youtube-thumbnail {
+       position: relative;
+       width: 100%;
+       aspect-ratio: 16/9;
+       cursor: pointer;
+       border-radius: 8px;
+       overflow: hidden;
+       background: #000;
+       transition: transform 0.3s ease;
+   }
+   
+   .simple-youtube-thumbnail:hover {
+       transform: scale(1.02);
+   }
+   
+   .simple-youtube-thumbnail img {
+       width: 100%;
+       height: 100%;
+       object-fit: cover;
+       display: block;
+   }
+   
+   /* === 播放按鈕樣式 === */
+   .simple-play-button {
+       position: absolute;
+       top: 50%;
+       left: 50%;
+       transform: translate(-50%, -50%);
+       opacity: 0.9;
+       transition: opacity 0.3s ease, transform 0.3s ease;
+       filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+   }
+   
+   .simple-youtube-thumbnail:hover .simple-play-button {
+       opacity: 1;
+       transform: translate(-50%, -50%) scale(1.1);
+   }
+   
+   .simple-play-button svg {
+       transition: transform 0.2s ease;
+   }
+   
+   .simple-play-button:active svg {
+       transform: scale(0.95);
+   }
   
     .dot-content-invisible-close {
         width: 50px; /* 極小螢幕更小一點 */
