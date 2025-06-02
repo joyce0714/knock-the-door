@@ -185,6 +185,11 @@ function closeIntroPopup() {
 }
 
 // === 新增：開啟點點內容 ===
+// ========================================
+// 簡化版 YouTube 縮圖解決方案
+// 只修改 openDotContent 函數中的 YouTube 部分
+// ========================================
+
 function openDotContent(dotNumber) {
     console.log(`🎯 打開點點 ${dotNumber} 的內容`);
     
@@ -205,10 +210,7 @@ function openDotContent(dotNumber) {
     
     const isCurrentlyMobile = window.innerWidth <= 768 || isMobile;
     
-    // ========================================
     // 創建容器和透明按鈕
-    // ========================================
-    
     const dotContentContainer = document.createElement('div');
     dotContentContainer.className = 'dot-content-container';
     
@@ -216,8 +218,6 @@ function openDotContent(dotNumber) {
     const invisibleCloseButton = document.createElement('button');
     invisibleCloseButton.className = 'dot-content-invisible-close';
     invisibleCloseButton.setAttribute('aria-label', '關閉視窗');
-    
-    // 設置按鈕樣式 (先用可見版本確保正常)
     invisibleCloseButton.style.cssText = `
         position: absolute !important;
         top: 0 !important;
@@ -229,161 +229,117 @@ function openDotContent(dotNumber) {
         cursor: pointer !important;
         z-index: 2001 !important;
         outline: none !important;
-        transition: background-color 0.2s ease !important;
     `;
     
-    // hover 效果
-    invisibleCloseButton.addEventListener('mouseenter', () => {
-        invisibleCloseButton.style.background = 'rgba(255, 255, 255, 0)';
-        invisibleCloseButton.style.borderRadius = '0 8px 0 8px';
-    });
-    
-    invisibleCloseButton.addEventListener('mouseleave', () => {
-        invisibleCloseButton.style.background = 'transparent';
-        invisibleCloseButton.style.borderRadius = '0';
-    });
-    
-    // 點擊事件
     invisibleCloseButton.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
-        console.log('🎯 透明關閉按鈕被點擊！');
         closeDotContent();
     });
     
-    // 鍵盤支援
-    invisibleCloseButton.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            invisibleCloseButton.click();
-        }
-    });
-    
-    // ========================================
     // 處理不同類型的內容
-    // ========================================
-    
     switch (content.type) {
-      // 在 openDotContent 函數中添加錯誤處理
-    case 'youtube':
-        const youtubeBackground = isCurrentlyMobile ? content.background.mobile : content.background.desktop;
-        dotContentContainer.innerHTML = `
-            <div class="dot-content-background" style="background-image: url('${youtubeBackground}');">
-                <div class="dot-youtube-container">
-                    <iframe 
-                        width="100%" 
-                        height="100%" 
-                        src="https://www.youtube.com/embed/${content.youtube}?rel=0&modestbranding=1&autoplay=0"
-                        frameborder="0" 
-                        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen
-                        style="border-radius: 8px;">
-                    </iframe>
-                    <!-- 添加備用連結 -->
-                    <div class="youtube-fallback" style="display: none;">
-                        <a href="https://www.youtube.com/watch?v=${content.youtube}" target="_blank">
-                            在 YouTube 中觀看
-                        </a>
+        case 'youtube':
+            console.log('🎬 創建簡化版 YouTube 縮圖');
+            const youtubeBackground = isCurrentlyMobile ? content.background.mobile : content.background.desktop;
+            
+            // 簡化版：只有縮圖 + 播放按鈕，保持原本 iframe 的尺寸
+            dotContentContainer.innerHTML = `
+                <div class="dot-content-background" style="background-image: url('${youtubeBackground}');">
+                    <div class="dot-youtube-container">
+                        <!-- 簡單的 YouTube 縮圖，點擊跳轉 -->
+                        <div class="simple-youtube-thumbnail" onclick="openYouTube('${content.youtube}')">
+                            <img src="https://img.youtube.com/vi/${content.youtube}/maxresdefault.jpg" 
+                                 alt="YouTube 影片縮圖" 
+                                 onerror="this.src='https://img.youtube.com/vi/${content.youtube}/hqdefault.jpg'">
+                            
+                            <!-- 簡單的播放按鈕 -->
+                            <div class="simple-play-button">
+                                <svg width="68" height="48" viewBox="0 0 68 48">
+                                    <path d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#f00"></path>
+                                    <path d="M 45,24 27,14 27,34" fill="#fff"></path>
+                                </svg>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>`;
-
-        // 檢測 iframe 載入失敗
-        setTimeout(() => {
-            const iframe = dotContentContainer.querySelector('iframe');
-            const fallback = dotContentContainer.querySelector('.youtube-fallback');
-
-            iframe.onerror = () => {
-                iframe.style.display = 'none';
-                fallback.style.display = 'block';
-            };
-        }, 1000);
-        break;
+            `;
+            break;
             
         case 'audio':
+            // 音檔處理保持不變
             console.log('創建音檔內容');
-
             const audioBackground = isCurrentlyMobile ? content.background.mobile : content.background.desktop;
-
-            // 創建背景元素
+            
             const backgroundDiv = document.createElement('div');
             backgroundDiv.className = 'dot-content-background';
             backgroundDiv.style.backgroundImage = `url('${audioBackground}')`;
             dotContentContainer.appendChild(backgroundDiv);
-
-            // 創建音檔定位容器
+            
             const audioContainer = document.createElement('div');
             audioContainer.className = 'audio-items-container';
             dotContentContainer.appendChild(audioContainer);
-
-            // 添加音檔內容類別
+            
             body.classList.add('audio-content');
-
-            // 生成音檔元件 - 使用 CSS 類別控制符號切換
+            
             content.audios.forEach((audio, index) => {
                 const audioItem = document.createElement('div');
                 audioItem.className = 'dot-audio-item';
-
-                // 創建隱藏的原生音檔元素
+                
                 const audioElement = document.createElement('audio');
                 audioElement.id = `audio-element-${Date.now()}-${index}`;
                 audioElement.preload = 'metadata';
                 audioElement.style.display = 'none';
-
+                
                 const source = document.createElement('source');
                 source.src = audio.url;
-                source.type = 'audio/mpeg'; // 修正為正確的 MIME type
-
+                source.type = 'audio/mpeg';
+                
                 audioElement.appendChild(source);
                 audioItem.appendChild(audioElement);
-
-                // 創建自定義播放器介面
+                
                 const customPlayer = document.createElement('div');
                 customPlayer.className = 'audio-player';
-
-                // 播放/暫停按鈕 - 使用 CSS 類別控制
+                
                 const playButton = document.createElement('div');
-                playButton.className = 'play-button'; // 初始狀態：不包含 'playing' 類別
-
+                playButton.className = 'play-button';
+                
                 const playIcon = document.createElement('span');
                 playIcon.className = 'play-icon';
                 playIcon.textContent = '⏵';
-
+                
                 const pauseIcon = document.createElement('span');
                 pauseIcon.className = 'pause-icon';
                 pauseIcon.textContent = '⏸';
-
+                
                 playButton.appendChild(playIcon);
                 playButton.appendChild(pauseIcon);
-
-                // 進度條容器
+                
                 const progressContainer = document.createElement('div');
                 progressContainer.className = 'progress-container';
                 const progressBar = document.createElement('div');
                 progressBar.className = 'progress-bar';
                 progressContainer.appendChild(progressBar);
-
-                // 時間顯示
+                
                 const timeDisplay = document.createElement('div');
                 timeDisplay.className = 'time';
                 timeDisplay.textContent = '0:00';
-
-                // 組合播放器
+                
                 customPlayer.appendChild(playButton);
                 customPlayer.appendChild(progressContainer);
                 customPlayer.appendChild(timeDisplay);
                 audioItem.appendChild(customPlayer);
-
-                // 播放器邏輯 - 使用 CSS 類別控制符號
+                
+                // 播放器邏輯
                 let isPlaying = false;
                 let isDragging = false;
-
+                
                 function formatTime(seconds) {
                     const mins = Math.floor(seconds / 60);
                     const secs = Math.floor(seconds % 60);
                     return `${mins}:${secs.toString().padStart(2, '0')}`;
                 }
-
+                
                 function updateProgress() {
                     if (!isDragging && audioElement.duration) {
                         const progress = (audioElement.currentTime / audioElement.duration) * 100;
@@ -391,20 +347,15 @@ function openDotContent(dotNumber) {
                         timeDisplay.textContent = formatTime(audioElement.currentTime);
                     }
                 }
-
-                // 修正：使用 CSS 類別控制符號切換
+                
                 function updatePlayPauseButton(playing) {
-                    console.log(`更新播放按鈕狀態: ${playing ? '播放中' : '暫停'}`);
                     if (playing) {
                         playButton.classList.add('playing');
-                        console.log('添加 playing 類別');
                     } else {
                         playButton.classList.remove('playing');
-                        console.log('移除 playing 類別');
                     }
                 }
-
-                // 修正：重置所有其他播放器的狀態
+                
                 function resetOtherPlayButtons() {
                     document.querySelectorAll('.play-button').forEach(otherButton => {
                         if (otherButton !== playButton) {
@@ -412,31 +363,25 @@ function openDotContent(dotNumber) {
                         }
                     });
                 }
-
+                
                 playButton.addEventListener('click', () => {
-                    console.log('播放按鈕被點擊，當前狀態:', isPlaying);
-
                     if (isPlaying) {
-                        console.log('暫停音檔');
                         audioElement.pause();
                     } else {
-                        console.log('開始播放音檔');
-                        // 暫停其他正在播放的音檔
                         document.querySelectorAll('audio').forEach(otherAudio => {
                             if (otherAudio !== audioElement && !otherAudio.paused) {
                                 otherAudio.pause();
                             }
                         });
-
-                        // 重置其他播放器的按鈕狀態
+                        
                         resetOtherPlayButtons();
-
+                        
                         audioElement.play().catch(error => {
                             console.error('播放失敗:', error);
                         });
                     }
                 });
-
+                
                 progressContainer.addEventListener('click', (e) => {
                     if (audioElement.duration) {
                         const rect = progressContainer.getBoundingClientRect();
@@ -446,51 +391,44 @@ function openDotContent(dotNumber) {
                         audioElement.currentTime = newTime;
                     }
                 });
-
-                // 修正：音檔事件監聽器
+                
                 audioElement.addEventListener('play', () => {
-                    console.log('音檔開始播放事件觸發');
                     isPlaying = true;
                     updatePlayPauseButton(true);
                 });
-
+                
                 audioElement.addEventListener('pause', () => {
-                    console.log('音檔暫停事件觸發');
                     isPlaying = false;
                     updatePlayPauseButton(false);
                 });
-
+                
                 audioElement.addEventListener('ended', () => {
-                    console.log('音檔播放結束事件觸發');
                     isPlaying = false;
                     updatePlayPauseButton(false);
                     progressBar.style.width = '0%';
                     timeDisplay.textContent = '0:00';
                 });
-
-                // 載入事件
+                
                 audioElement.addEventListener('loadedmetadata', () => {
-                    console.log('音檔元數據載入完成');
                     if (audioElement.duration && !isNaN(audioElement.duration)) {
                         timeDisplay.textContent = formatTime(audioElement.duration);
                     }
                 });
-
-                // 錯誤處理
+                
                 audioElement.addEventListener('error', (e) => {
                     console.error('音檔載入錯誤:', e);
                     timeDisplay.textContent = '錯誤';
                 });
-
+                
                 audioElement.addEventListener('timeupdate', updateProgress);
-
+                
                 audioContainer.appendChild(audioItem);
             });
-
+            
             setTimeout(() => {
                 repositionAudioItems();
             }, 150);
-
+            
             break;
             
         case 'image':
@@ -500,9 +438,7 @@ function openDotContent(dotNumber) {
             break;
     }
     
-    // ========================================
-    // 重要：最後添加透明按鈕到容器
-    // ========================================
+    // 添加透明按鈕到容器
     dotContentContainer.appendChild(invisibleCloseButton);
     
     // 將容器添加到 body
@@ -510,8 +446,24 @@ function openDotContent(dotNumber) {
     
     // 顯示 popup
     popup.style.display = 'flex';
+}
+
+// ========================================
+// 簡單的 YouTube 跳轉函數
+// ========================================
+
+function openYouTube(videoId) {
+    console.log(`🎬 開啟 YouTube: ${videoId}`);
     
-    console.log('✅ 透明關閉按鈕已成功添加');
+    const youtubeUrl = `https://www.youtube.com/watch?v=${videoId}`;
+    
+    // 直接在新視窗開啟，手機會自動嘗試打開 YouTube app
+    const newWindow = window.open(youtubeUrl, '_blank', 'noopener,noreferrer');
+    
+    if (!newWindow) {
+        // 如果彈出視窗被阻擋，直接跳轉
+        window.location.href = youtubeUrl;
+    }
 }
 
 // === 新增：關閉點點內容彈窗 ===
