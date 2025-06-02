@@ -877,6 +877,7 @@ body {
     .dot-audio-item:nth-child(1) {
         margin-top: 15px !important;
         margin-left: 20px !important; /* 靠左一點 */
+        margin-right: -30px !important
         margin-right: auto !important;
     }
     
