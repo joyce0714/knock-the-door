@@ -264,26 +264,41 @@ function openDotContent(dotNumber) {
     // ========================================
     
     switch (content.type) {
-      case 'youtube':
+      // 在 openDotContent 函數中添加錯誤處理
+    case 'youtube':
         const youtubeBackground = isCurrentlyMobile ? content.background.mobile : content.background.desktop;
         dotContentContainer.innerHTML = `
             <div class="dot-content-background" style="background-image: url('${youtubeBackground}');">
                 <div class="dot-youtube-container">
-                    <!-- 真正的 YouTube 播放器 -->
                     <iframe 
                         width="100%" 
                         height="100%" 
-                        src="https://www.youtube.com/embed/${content.youtube}?rel=0&modestbranding=1"
+                        src="https://www.youtube.com/embed/${content.youtube}?rel=0&modestbranding=1&autoplay=0"
                         frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                         allowfullscreen
                         style="border-radius: 8px;">
                     </iframe>
-
+                    <!-- 添加備用連結 -->
+                    <div class="youtube-fallback" style="display: none;">
+                        <a href="https://www.youtube.com/watch?v=${content.youtube}" target="_blank">
+                            在 YouTube 中觀看
+                        </a>
+                    </div>
                 </div>
-            </div>
-            `;
-            break;
+            </div>`;
+
+        // 檢測 iframe 載入失敗
+        setTimeout(() => {
+            const iframe = dotContentContainer.querySelector('iframe');
+            const fallback = dotContentContainer.querySelector('.youtube-fallback');
+
+            iframe.onerror = () => {
+                iframe.style.display = 'none';
+                fallback.style.display = 'block';
+            };
+        }, 1000);
+        break;
             
         case 'audio':
             console.log('創建音檔內容');
