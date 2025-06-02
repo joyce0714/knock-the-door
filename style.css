@@ -1242,9 +1242,170 @@ body {
     .simple-play-button svg {
         width: 45px;
         height: 32px;
+    } /* 添加這個遺失的大括號！ */
+    
+    .dot-content-invisible-close {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .dot-audio-item {
+        width: 180px !important;
+        padding: 10px !important;
+        gap: 5px !important;
+    }
+    
+    .dot-audio-title {
+        font-size: 12px !important;
+    }
+    
+    .dot-audio-player {
+        height: 32px !important;
+    }
+    
+    .door-container {
+        top: 10vh;
+    }
+    
+    .doorbell-container {
+        top: max(30vh, 40px);
+        left: calc(50% - min(100px, 100vw));
+    }
+    
+    .door-image {
+        width: min(180px, 50vw);
+        height: auto;
+    }
+    
+    .intro-popup-container {
+        width: 90vw;
+        height: auto;
+        max-width: 200px;
+        max-height: 50vh;
+    }
+    
+    .intro-close-section {
+        position: relative;
+        margin-top: -60px;
+        padding: 12px;
+        background: transparent;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1002;
+    }
+    
+    .intro-close-button-img {
+        height: 30px;
+        width: auto;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+    }
+    
+    .dialog-window {
+        bottom: 2vh;
+        height: min(280px, 38vh);
+        width: min(495px, 92vw);
+    }
+    
+    .dialog-content {
+        width: 85%;
+        height: 80%;
+        margin-top: 6%;
+        transform: translateX(10%);
+    }
+    
+    .character-avatar {
+        width: 100%;
+        height: 100%;
+        margin-left: -35px;
+    }
+    
+    .dialog-text {
+        font-size: min(11px, 2.2vw);
+        line-height: 1.35;
+        margin-bottom: min(5px, 1vh);
+    }
+    
+    .dialog-text p {
+        margin-bottom: min(5px, 0.8vh);
+        margin-left: min(-20px, 2vh);
+    }
+    
+    .story-textarea {
+        width: 118%;
+        height: min(28px, 10vh);
+        padding: min(6px, 1vw);
+        font-size: max(9px, min(9px, 2.2vw));
+        transform: translateX(-28%);
+    }
+    
+    .button-section {
+        gap: min(6px, 1.2vw);
+        margin-bottom: min(6px, 1.2vh);
+        transform: translateX(-18px);
+    }
+    
+    .dialog-button-img {
+        height: min(22px, 6vh);
+        margin-left: min(2px, 0.5vw);
+    }
+    
+    .condition-text {
+        font-size: min(12px, 2vw);
+        line-height: 1.8;
+        transform: translateX(-25%);
+    }
+    
+    .popup-window-frame {
+        width: 85vw;
+        height: 95vh;
+        padding: 24px 4px 4px 4px;
+    }
+    
+    .popup-manager-overlay {
+        width: 130px;
+        height: 65px;
+        left: 38%;
+        top: 6%;
+    }
+    
+    .popup-phone-overlay {
+        width: 240px;
+        height: 140px;
+        bottom: 48%;
+        left: 8%;
+    }
+    
+    .popup-comments-area {
+        bottom: 12%;
+        left: 8%;
+        width: 84%;
+        height: 36%;
+    }
+    
+    .comments-list {
+        font-size: 10px;
+        padding: 6px;
+    }
+    
+    .comment-nickname {
+        font-size: 11px;
+    }
+    
+    .comment-content {
+        font-size: 10px;
+    }
+    
+    .close-button-img {
+        height: 30px;
+    }
+} /* 這裡要關閉 @media 查詢 */
 
-   /* === YouTube 縮圖容器樣式 === */
-   .simple-youtube-thumbnail {
+     /* === YouTube 縮圖容器樣式 === */
+     /* 這些樣式應該移到 @media 查詢外面 */
+    .simple-youtube-thumbnail {
        position: relative;
        width: 100%;
        aspect-ratio: 16/9;
@@ -1255,11 +1416,11 @@ body {
        transition: transform 0.3s ease;
    }
    
-   .simple-youtube-thumbnail:hover {
+     .simple-youtube-thumbnail:hover {
        transform: scale(1.02);
    }
    
-   .simple-youtube-thumbnail img {
+     .simple-youtube-thumbnail img {
        width: 100%;
        height: 100%;
        object-fit: cover;
@@ -1267,7 +1428,7 @@ body {
    }
    
    /* === 播放按鈕樣式 === */
-   .simple-play-button {
+     .simple-play-button {
        position: absolute;
        top: 50%;
        left: 50%;
@@ -1277,16 +1438,16 @@ body {
        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
    }
    
-   .simple-youtube-thumbnail:hover .simple-play-button {
+     .simple-youtube-thumbnail:hover .simple-play-button {
        opacity: 1;
        transform: translate(-50%, -50%) scale(1.1);
    }
    
-   .simple-play-button svg {
+     .simple-play-button svg {
        transition: transform 0.2s ease;
    }
    
-   .simple-play-button:active svg {
+     .simple-play-button:active svg {
        transform: scale(0.95);
    }
   
