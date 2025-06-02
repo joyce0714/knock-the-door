@@ -1,3 +1,8 @@
+/* ========================================
+   整合版CSS - 保留第一版精確位置設定
+   ======================================== */
+
+/* === 基礎重置和字體 === */
 * {
     margin: 0;
     padding: 0;
@@ -13,7 +18,7 @@ body {
     min-height: 600px;
 }
 
-/* 第一個畫面：入站圖 */
+/* === 第一個畫面：入站圖 === */
 .tv-screen {
     position: fixed;
     top: 0;
@@ -36,7 +41,7 @@ body {
     object-fit: cover;
 }
 
-/* 第二個畫面：主要內容 */
+/* === 第二個畫面：主要內容 === */
 .main-screen {
     position: fixed;
     top: 0;
@@ -64,7 +69,30 @@ body {
     z-index: 1;
 }
 
-/* 門的圖片 - 調整尺寸 */
+/* === 新增：門鈴和門的圖片 === */
+.doorbell-container {
+    position: absolute;
+    top: max(20vh, 40px);
+    left: calc(50% - min(190px, 15vw));
+    transform: translateX(-50%);
+    z-index: 3;
+    transition: all 0.3s ease;
+}
+
+.doorbell-image {
+    width: min(50px, 6vw);
+    height: auto;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.doorbell-image:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+/* === 保留第一版精確的門位置設定 === */
 .door-container {
     position: absolute;
     top: max(3vh, 20px);
@@ -81,7 +109,7 @@ body {
     transition: all 0.3s ease;
 }
 
-/* 滿版GIF播放容器 - 修改：移除動畫效果 */
+/* === 滿版GIF播放容器 === */
 .fullscreen-gif-container {
     position: fixed;
     top: 0;
@@ -94,7 +122,6 @@ body {
     align-items: center;
     z-index: 999;
     cursor: pointer;
-    /* 移除所有 transition 屬性 */
 }
 
 .fullscreen-gif-container .gif-image {
@@ -103,7 +130,394 @@ body {
     object-fit: cover;
 }
 
-/* Windows 對話視窗 - 響應式設計 */
+/* === 新增：介紹圖片彈出視窗 === */
+.intro-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1001;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.intro-popup-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.intro-popup-container {
+    position: relative;
+    width: 90vw;
+    height: auto;
+    max-width: 800px;
+    max-height: 90vh;
+    background: #fff;
+    border-radius: 0px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.intro-popup-content {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    padding: 0;
+    position: relative;
+}
+
+.intro-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+
+/* === 互動點點容器 === */
+.intro-dots-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.intro-dot {
+    position: absolute;
+    width: 50px;
+    height: 10px;
+    border-radius: 0%;
+    background: rgba(0, 0, 0, 0);
+    border: 2px solid rgba(0, 0, 0, 0);
+    cursor: pointer;
+    pointer-events: all;
+    transition: all 0.3s ease;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0);
+}
+
+.intro-dot:nth-child(1) { width: 90px; height: 10px; }
+.intro-dot:nth-child(4) { width: 65px; height: 10px; }
+.intro-dot:nth-child(5) { width: 200px; height: 10px; }
+.intro-dot:nth-child(6) { width: 70px; height: 10px; }
+.intro-dot:nth-child(7) { width: 100px; height: 10px; }
+.intro-dot:nth-child(8) { width: 120px; height: 10px; }
+
+.intro-close-section {
+    position: relative;
+    margin-top: -110px;
+    padding: 12px;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1002;
+}
+
+.intro-close-button-img {
+    height: 50px;
+    width: auto;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+}
+
+.intro-close-button-img:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1) drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+}
+
+/* === 新增：點點內容彈窗樣式 === */
+.dot-content-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.1);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.dot-content-container {
+    position: relative;
+    width: min(80vw, 600px);
+    aspect-ratio: 1/1;
+    max-width: 600px;
+    background: rgba(244, 0, 0, 0);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.dot-content-invisible-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 80px; /* 點擊區域寬度，可調整 */
+    height: 80px; /* 點擊區域高度，可調整 */
+    background: rgba(255, 0, 0, 0) !important;
+    border: 2px solid red !important;
+    border: none;
+    cursor: pointer;
+    z-index: 2001; /* 確保在最上層 */
+    outline: none;
+    
+    /* 可選：添加 hover 效果來提示用戶這裡可以點擊 */
+    transition: background-color 0.2s ease;
+}
+
+/* === 可選的 hover 提示效果 === */
+.dot-content-invisible-close:hover {
+    background: rgba(255, 255, 255, 0.1); /* hover 時顯示淡淡的白色 */
+    border-radius: 0 8px 0 8px; /* 右上角圓角 */
+}
+
+/* === 可選的點擊反饋效果 === */
+.dot-content-invisible-close:active {
+    background: rgba(255, 255, 255, 0.2); /* 點擊時稍微明顯一點 */
+    transform: scale(0.95); /* 點擊時稍微縮小 */
+}
+
+.dot-content-header {
+    display: none;
+}
+
+.dot-content-body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.dot-content-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0px;
+    display: block;
+}
+
+.dot-content-background {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.dot-youtube-container {
+    width: 100%;
+    aspect-ratio: 16/9;
+    max-width: 560px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.dot-youtube-container iframe {
+    border-radius: 8px; /* 配合容器圓角 */
+    background: #000; /* 載入時的背景色 */
+}
+
+/* === 新增：音檔定位系統 === */
+.dot-content-body.audio-content {
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
+    overflow: visible !important;
+    display: block !important;
+    flex-direction: unset !important;
+    align-items: unset !important;
+    justify-content: unset !important;
+}
+
+/* 音檔容器樣式 */
+.dot-content-body.audio-content .dot-audio-item {
+    /* 播放器寬度調整 */
+    width: 370px !important;
+    
+    /* 外框顏色調整 */
+    background: rgba(40, 40, 40, 0.8) !important; /* 白色半透明背景 */
+    border: 0px solid #4A90E2 !important; /* 藍色外框，可改成任何顏色 */
+    border-radius: 12px !important;
+    padding: 15px !important;
+    margin: 10px 0 !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+/* 第一個播放器 */
+.dot-content-body.audio-content .dot-audio-item:nth-child(1) {
+    margin-top: 10px !important;
+    margin-left: -45px !important; /* 調整左邊距 */
+    margin-right: auto !important;
+}
+
+/* 第二個播放器 */
+.dot-content-body.audio-content .dot-audio-item:nth-child(2) {
+    margin-top: 10px !important;
+    margin-left: auto !important;
+    margin-right: -40px !important; /* 調整右邊距 */
+}
+
+/* 第三個播放器 */
+.dot-content-body.audio-content .dot-audio-item:nth-child(3) {
+    margin-top: 30px !important;
+    margin-left: 0px !important;
+    margin-right: -40px !important; /* 置中 */
+    margin-bottom: 5px !important;
+}
+
+
+/* 電腦版播放器布局 */
+.dot-audio-item .audio-player {
+    display: flex !important;
+    align-items: center;
+    margin-top: 0;
+    gap: 20px !important; /* 調整元素間距 */
+}
+
+/* 電腦版播放按鈕尺寸 */
+.dot-audio-item .play-button {
+    width: 55px !important; /* 按鈕寬度 */
+    height: 55px !important; /* 按鈕高度 */
+    background-color: rgba(255, 180, 70, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-right: 0 !important; /* 移除右邊距，改用 gap */
+    transition: all 0.3s;
+    position: relative;
+    flex-shrink: 0; /* 防止按鈕被壓縮 */
+}
+
+.dot-audio-item .play-button:hover {
+    background-color: rgba(255, 180, 70, 0.4);
+    transform: scale(1.1);
+}
+
+/* 電腦版播放按鈕圖示 */
+.dot-audio-item .play-icon, 
+.dot-audio-item .pause-icon {
+    font-size: 20px !important; /* 圖示大小 */
+    color: #ffb446;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* 播放狀態 - 顯示暫停符號 */
+.dot-audio-item .play-button.playing .play-icon {
+    display: none !important;
+}
+
+.dot-audio-item .play-button.playing .pause-icon {
+    display: block !important;
+}
+
+/* 暫停狀態 - 顯示播放符號 */
+.dot-audio-item .play-button:not(.playing) .play-icon {
+    display: block !important;
+}
+
+.dot-audio-item .play-button:not(.playing) .pause-icon {
+    display: none !important;
+}
+
+
+/* 電腦版進度條尺寸 */
+.dot-audio-item .progress-container {
+    flex-grow: 1;
+    height: 6px !important; /* 進度條高度 */
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 3px !important; /* 進度條圓角 */
+    cursor: pointer;
+    position: relative;
+    transition: height 0.2s ease;
+}
+
+.dot-audio-item .progress-container:hover {
+    height: 8px !important; /* hover 時的高度 */
+}
+
+.dot-audio-item .progress-bar {
+    height: 100%;
+    width: 0;
+    background-color: #ffb446;
+    border-radius: 3px;
+    transition: width 0.1s ease;
+    position: relative;
+}
+
+/* 電腦版進度條拖拽點 */
+.dot-audio-item .progress-bar::after {
+    content: '';
+    position: absolute;
+    right: -3px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px !important; /* 拖拽點大小 */
+    height: 8px !important;
+    background-color: #ffb446;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.dot-audio-item .progress-container:hover .progress-bar::after {
+    opacity: 1;
+}
+
+/* 電腦版時間顯示 */
+.dot-audio-item .time {
+    margin-left: 0 !important; /* 移除左邊距，改用 gap */
+    font-size: 14px !important; /* 時間字體大小 */
+    color: #ddd;
+    min-width: 50px !important;
+    text-align: right;
+    font-family: 'Courier New', monospace;
+    flex-shrink: 0; /* 防止時間顯示被壓縮 */
+}
+
+
+/* === 保留第一版精確的Windows對話視窗位置設定 === */
 .dialog-window {
     position: absolute;
     bottom: max(3vh, 20px);
@@ -228,7 +642,7 @@ body {
     transform: translateX(-22%);
 }
 
-/* 通用按鍵和圖片樣式 */
+/* === 通用按鍵和圖片樣式 === */
 .dialog-button-img:hover {
     transform: scale(1.02);
     filter: brightness(1.1);
@@ -270,7 +684,7 @@ body {
     font-weight: bold;
 }
 
-/* 留言彈出視窗 - 重新設計 */
+/* === 保留第一版精確的留言彈出視窗位置設定 === */
 .comments-popup {
     position: fixed;
     top: 0;
@@ -286,7 +700,6 @@ body {
     position: relative;
 }
 
-/* 第一層：背景毛玻璃 - 滿版 */
 .popup-bg-blur {
     position: absolute;
     top: 0;
@@ -300,7 +713,6 @@ body {
     z-index: 1;
 }
 
-/* 第二層：視窗框架 - 居中的Windows視窗 */
 .popup-window-frame {
     position: absolute;
     top: 50%;
@@ -319,7 +731,6 @@ body {
     padding: 32px 8px 8px 8px;
 }
 
-/* 第三層：管家頭像文字覆蓋層 - 在視窗框架內 */
 .popup-manager-overlay {
     position: absolute;
     top: 8%;
@@ -334,7 +745,6 @@ body {
     z-index: 3;
 }
 
-/* 第四層：電話插圖 - 在視窗框架內左下角 */
 .popup-phone-overlay {
     position: absolute;
     bottom: 18%;
@@ -348,7 +758,6 @@ body {
     z-index: 4;
 }
 
-/* 第五層：留言區域 - 在視窗框架內 */
 .popup-comments-area {
     position: absolute;
     bottom: 20%;
@@ -407,7 +816,6 @@ body {
     font-size: 12px;
 }
 
-/* 第六層：關閉按鈕 - 在視窗框架底部置中 */
 .popup-footer {
     position: absolute;
     bottom: 5%;
@@ -416,7 +824,7 @@ body {
     z-index: 6;
 }
 
-/* 桌面版滾動條美化 */
+/* === 桌面版滾動條美化 === */
 .comments-list::-webkit-scrollbar {
     width: 8px;
 }
@@ -434,20 +842,152 @@ body {
     background: #4968C0;
 }
 
-/* 手機版響應式調整 */
+/* === 保留第一版精確的手機版響應式調整 === */
 @media only screen and (max-width: 768px) {
-    
-  body {
-        min-height: 500px; /* 這個只影響手機版，會覆蓋上面的 600px */
+    .dot-youtube-container {
+        width: 10%; /* 手機版稍微寬一點 */
+        max-width: 370px; /* 手機版最大寬度 */
     }
     
+    .dot-content-invisible-close {
+        width: 60px; /* 手機版稍微小一點 */
+        height: 60px;
+    }
+  
+    body {
+        min-height: 500px;
+    }
+  
+    /* 手機版容器調整 */
+    .dot-audio-item {
+        /* 手機版寬度調整 */
+        width: 200px !important; /* 調整這個數值來改變手機版寬度 */
+        max-width: 50vw !important;
+        
+        /* 手機版外框顏色 */
+        background: rgba(40, 40, 40, 0.8) !important; /* 白色背景 */
+        border: 0px solid #FF6B6B !important; /* 紅色外框，可改成任何顏色 */
+        border-radius: 10px !important;
+        padding: 12px !important;
+        margin: 8px auto !important; /* 置中顯示 */
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15) !important;
+    }
+  
+    /* 第一個播放器 */
+    .dot-audio-item:nth-child(1) {
+        margin-top: 15px !important;
+        margin-left: 10px !important; /* 靠左一點 */
+        margin-right: auto !important;
+    }
+    
+    /* 第二個播放器 */
+    .dot-audio-item:nth-child(2) {
+        margin-top: 20px !important;
+        margin-left: 10px !important;
+        margin-right: -30px !important; /* 靠右一點 */
+    }
+    
+    /* 第三個播放器 */
+    .dot-audio-item:nth-child(3) {
+        margin-top: 12px !important;
+        margin-left: 10px !important;
+        margin-right: -30px !important; /* 完全置中 */
+        margin-bottom: 10px !important;
+    }
+    
+    /* 手機版播放按鈕尺寸 */
+    .dot-audio-item .play-button {
+        width: 30px !important; /* 按鈕寬度 */
+        height: 30px !important; /* 按鈕高度 */
+        margin-right: 0;
+        margin-bottom: 0;
+    }
+    
+    /* 手機版播放按鈕圖示大小 */
+    .dot-audio-item .play-icon, 
+    .dot-audio-item .pause-icon {
+        font-size: 24px !important; /* 圖示大小 */
+    }
+    
+    /* 手機版進度條尺寸 */
+    .dot-audio-item .progress-container {
+        height: 8px !important; /* 進度條高度 */
+        border-radius: 4px !important; /* 進度條圓角 */
+        width: 100%;
+    }
+    
+    .dot-audio-item .progress-container:hover {
+        height: 10px !important; /* hover 時的高度 */
+    }
+    
+    /* 手機版進度條拖拽點 */
+    .dot-audio-item .progress-bar::after {
+        width: 12px !important; /* 拖拽點大小 */
+        height: 12px !important;
+        right: -6px !important; /* 調整位置 */
+    }
+    
+    /* 手機版時間顯示 */
+    .dot-audio-item .time {
+        font-size: 16px !important; /* 時間字體大小 */
+        margin-left: 0;
+        text-align: right;
+        min-width: 50px !important;
+    }
+    
+    /* 手機版布局方式 */
+    .dot-audio-item .audio-player {
+        display: grid !important;
+        grid-template-columns: auto 1fr auto; /* 播放鈕 進度條 時間 */
+        grid-template-areas: "play progress time";
+        gap: 15px !important; /* 調整元素間距 */
+        align-items: center;
+    }
+    
+    .dot-audio-item .play-button {
+        grid-area: play;
+    }
+    
+    .dot-audio-item .progress-container {
+        grid-area: progress;
+    }
+    
+    .dot-audio-item .time {
+        grid-area: time;
+    }
+  
   
     .door-container {
-        top: max(6vh, 40px);
+            top: max(6vh, 40px);
     }
     
     .door-image {
         width: min(180px, 60vw);
+    }
+  
+    .doorbell-container {
+        top: max(20vh, 40px);                    /* 調整垂直位置 */
+        left: calc(50% - min(100px, 100vw));     /* 調整水平位置 */
+    }
+  
+    .intro-close-section {
+        position: relative;
+        margin-top: -60px;
+        padding: 12px;
+        background: transparent;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1002;
+    }
+    
+  
+    .intro-close-button-img {
+        height: 30px;
+        width: auto;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
     }
     
     .dialog-window {
@@ -635,17 +1175,67 @@ body {
     }
 }
 
-/* 極小螢幕調整 - 保守優化版 */
 @media only screen and (max-width: 375px) {
+    .dot-youtube-container {
+        width: 95%;
+        max-width: 300px;
+    }
+  
+    .dot-content-invisible-close {
+        width: 50px; /* 極小螢幕更小一點 */
+        height: 50px;
+    }
+  
+    .dot-audio-item {
+        width: 180px !important;
+        padding: 10px !important;
+        gap: 5px !important;
+    }
+    
+    .dot-audio-title {
+        font-size: 12px !important;
+    }
+    
+    .dot-audio-player {
+        height: 32px !important;
+    }
+    
     /* 門容器微調 - 稍微向上移動釋放空間 */
     .door-container {
         top: 10vh; /* 從 12vh 改為 10vh */
     }
     
+  
+    .doorbell-container {
+        top: max(30vh, 40px);                    /* 調整垂直位置 */
+        left: calc(50% - min(100px, 100vw));     /* 調整水平位置 */
+    }
+  
+  
     /* 門圖片微調 - 稍微縮小 */
     .door-image {
         width: min(180px, 50vw); /* 從 200px/55vw 改為 180px/50vw */
         height: auto;
+    }
+    
+    .intro-close-section {
+        position: relative;
+        margin-top: -60px;
+        padding: 12px;
+        background: transparent;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1002;
+    }
+    
+  
+    .intro-close-button-img {
+        height: 30px;
+        width: auto;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
     }
     
     /* 對話視窗優化 - 保持你的設計風格 */
@@ -756,15 +1346,30 @@ body {
     }
 }
 
-/* 防止手機自動放大和啟用縮放功能 */
+    /* 極小螢幕音檔尺寸 */
+    .dot-audio-item {
+        width: 180px !important;
+        padding: 10px !important;
+        gap: 5px !important;
+    }
+    
+    .dot-audio-title {
+        font-size: 12px !important;
+    }
+    
+    .dot-audio-player {
+        height: 32px !important;
+    }
+}
+
+/* === 防止手機自動放大和啟用縮放功能 === */
 input, textarea, select {
-    font-size: 16px !important; /* iOS Safari 需要至少 16px 才不會自動放大 */
+    font-size: 16px !important;
     -webkit-text-size-adjust: 100%;
     -webkit-user-select: text;
     user-select: text;
 }
 
-/* 確保頁面可以縮放 */
 html {
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
@@ -775,13 +1380,32 @@ body {
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
     text-size-adjust: 100%;
-    /* 允許用戶縮放 */
     touch-action: manipulation;
 }
 
-/* 特別針對極小螢幕 */
-@media only screen and (max-width: 375px) {
-    .story-textarea {
-        font-size: 16px !important; /* 確保不會自動放大 */
+/* === 新增音檔動畫效果 === */
+.dot-audio-item:hover {
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+    transform: translateY(-2px) !important;
+}
+
+@keyframes audioItemFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
     }
 }
+
+.dot-audio-item {
+    animation: audioItemFadeIn 0.4s ease-out;
+    animation-fill-mode: both;
+}
+
+.dot-audio-item:nth-child(1) { animation-delay: 0.1s; }
+.dot-audio-item:nth-child(2) { animation-delay: 0.2s; }
+.dot-audio-item:nth-child(3) { animation-delay: 0.3s; }
