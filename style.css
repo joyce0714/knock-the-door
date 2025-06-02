@@ -884,6 +884,12 @@ body {
 
 /* === 保留第一版精確的手機版響應式調整 === */
 @media only screen and (max-width: 768px) {
+    .intro-popup-container {
+        width: 90vw;
+        max-width: 600px;  /* 手機版稍微小一點，但不要太小 */
+        max-height: 80vh;
+    }
+   
     .simple-play-button svg {
         width: 50px;
         height: 36px;
@@ -1278,10 +1284,9 @@ body {
     }
     
     .intro-popup-container {
-        width: 90vw;
-        height: auto;
-        max-width: 200px;
-        max-height: 50vh;
+        width: 95vw;
+        max-width: 350px;  /* 極小螢幕也不要太小 */
+        max-height: 75vh;
     }
     
     .intro-close-section {
@@ -1488,12 +1493,6 @@ body {
         height: auto;
     }
   
-    .intro-popup-container {
-        width: 90vw;
-        height: auto;
-        max-width: 200px;
-        max-height: 50vh;
-    }
     
     .intro-close-section {
         position: relative;
