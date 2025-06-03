@@ -1761,4 +1761,9 @@ body {
         height: min(50px, 4vh) !important;
         width: auto !important;
     }
+
+   .doorbell-container {
+        top: max(25vh, 40px);                    /* 調整垂直位置 */
+        left: calc(50% - min(130px, 100vw));     /* 調整水平位置 */
+    }
 }
