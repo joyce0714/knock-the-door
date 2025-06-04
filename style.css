@@ -72,15 +72,15 @@ body {
 /* === 新增：門鈴和門的圖片 === */
 .doorbell-container {
     position: absolute;
-    top: max(20vh, 40px);
-    left: calc(50% - min(190px, 15vw));
+    top: max(10vh, 5px);
+    left: calc(50% - min(150px, 15vw));
     transform: translateX(-50%);
     z-index: 3;
     transition: all 0.3s ease;
 }
 
 .doorbell-image {
-    width: min(50px, 6vw);
+    width: min(40px, 4vw);
     height: auto;
     border-radius: 4px;
     transition: all 0.3s ease;
@@ -669,7 +669,7 @@ body {
     width: auto;
     cursor: pointer;
     transition: all 0.1s ease;
-    margin-right: min(8px, 1.5vw);
+    margin-right: min(6px, 1vw);
 }
 
 .condition-text {
@@ -1688,6 +1688,239 @@ body {
 .dot-audio-item:nth-child(3) { animation-delay: 0.3s; }
 
 
+/* === 飯店預訂彈窗樣式 === */
+.hotel-booking-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1500;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.hotel-popup-overlay {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hotel-popup-window {
+    width: min(450px, 90vw);
+    background: linear-gradient(to bottom, #f0f0f0 0%, #e8e8e8 100%);
+    border: 1px solid #999;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 
+        0 0 0 1px rgba(255,255,255,0.8) inset,
+        0 8px 25px rgba(0,0,0,0.3),
+        0 2px 6px rgba(0,0,0,0.2);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes popIn {
+    from { 
+        opacity: 0;
+        transform: scale(0.8) translateY(-50px);
+    }
+    to { 
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Windows 7 風格標題列 */
+.hotel-popup-titlebar {
+    height: 30px;
+    background: linear-gradient(to bottom, 
+        #016bff 0%,
+        #0058ec 50%,
+        #016bff 100%);
+    border-radius: 7px 7px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 8px;
+    position: relative;
+    border-bottom: 1px solid #1a4480;
+}
+
+.hotel-popup-title {
+    color: white;
+    font-size: 12px;
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.3);
+}
+
+.hotel-popup-icon {
+    font-size: 14px;
+}
+
+.hotel-popup-controls {
+    display: flex;
+}
+
+.hotel-popup-close {
+    width: 21px;
+    height: 21px;
+    background: linear-gradient(to bottom, #ff6b6b 0%, #ff5252 100%);
+    border: 1px solid #8a8a8a;
+    border-radius: 2px;
+    color: #333;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.1s ease;
+    font-family: Arial, sans-serif;
+    line-height: 1;
+}
+
+.hotel-popup-close:hover {
+    background: linear-gradient(to bottom, #ff6b6b 0%, #ff5252 100%);
+    border-color: #d32f2f;
+    color: white;
+}
+
+.hotel-popup-close:active {
+    background: linear-gradient(to bottom, #ff5252 0%, #f44336 100%);
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.2);
+}
+
+/* 彈窗內容區域 */
+.hotel-popup-content {
+    padding: 25px 20px 20px 20px;
+    background: #f0f0f0;
+    border-radius: 0 0 8px 8px;
+    text-align: center;
+}
+
+.hotel-popup-text {
+    margin-bottom: 25px;
+    color: #333;
+    line-height: 1.5;
+    font-size: 14px;
+}
+
+.hotel-popup-text p {
+    margin: 8px 0;
+}
+
+.hotel-popup-booking {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.hotel-booking-button {
+    background: linear-gradient(to bottom, #ccc38d 0%, #d4bd54 100%);
+    border: 1px solid #3d8b40;
+    border-radius: 4px;
+    color: white;
+    padding: 12px 30px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 
+        0 1px 3px rgba(0,0,0,0.2),
+        inset 0 1px 0 rgba(255,255,255,0.3);
+    text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.hotel-booking-button:hover {
+    background: linear-gradient(to bottom, #d4bd54 0%, #d4bd54 100%);
+    box-shadow: 
+        0 2px 5px rgba(0,0,0,0.25),
+        inset 0 1px 0 rgba(255,255,255,0.4);
+    transform: translateY(-1px);
+}
+
+.hotel-booking-button:active {
+    background: linear-gradient(to bottom, #45a049 0%, #3d8b40 100%);
+    box-shadow: 
+        inset 0 2px 4px rgba(0,0,0,0.2),
+        0 1px 2px rgba(0,0,0,0.1);
+    transform: translateY(0);
+}
+
+.hotel-promo-text {
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+    font-style: italic;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 10px 15px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    line-height: 1.4;
+}
+
+/* 手機版響應式調整 */
+@media only screen and (max-width: 768px) {
+    .hotel-popup-window {
+        width: 85vw;
+        margin: 20px;
+    }
+    
+    .hotel-popup-content {
+        padding: 20px 15px 15px 15px;
+    }
+    
+    .hotel-popup-text {
+        font-size: 13px;
+        margin-bottom: 20px;
+    }
+    
+    .hotel-booking-button {
+        padding: 10px 25px;
+        font-size: 13px;
+    }
+    
+    .hotel-promo-text {
+        font-size: 11px;
+        padding: 8px 12px;
+    }
+}
+
+@media only screen and (max-width: 375px) {
+    .hotel-popup-window {
+        width: 90vw;
+    }
+    
+    .hotel-popup-content {
+        padding: 18px 12px 12px 12px;
+    }
+    
+    .hotel-popup-text {
+        font-size: 12px;
+    }
+    
+    .hotel-booking-button {
+        padding: 9px 20px;
+        font-size: 12px;
+    }
+}
+
 /* 桌面版預設樣式 - 確保在大螢幕上正確顯示 */
 @media only screen and (min-width: 769px) {
     .popup-window-frame {
@@ -1761,8 +1994,8 @@ body {
         height: min(50px, 4vh) !important;
         width: auto !important;
     }
-
-   .doorbell-container {
+    
+    .doorbell-container {
         top: max(25vh, 40px);                    /* 調整垂直位置 */
         left: calc(50% - min(130px, 100vw));     /* 調整水平位置 */
     }
