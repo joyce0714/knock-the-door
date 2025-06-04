@@ -112,6 +112,7 @@ const dotPositions = [
 ];
 
 // === 保留第一版：進入主畫面 ===
+// === 修正：進入主畫面函數 ===
 function enterMainScreen() {
     console.log('進入主畫面');
     const tvScreen = document.getElementById('tvScreen');
@@ -133,15 +134,61 @@ function enterMainScreen() {
         setTimeout(() => {
             mainScreen.classList.add('fade-in');
             
-            // 新增：延遲顯示介紹彈窗
+            // 新增：先顯示飯店預訂彈窗
             setTimeout(() => {
-                showIntroPopup();
-            }, 800);
+                showHotelPopup();
+            }, 500);
+            
+            // 可選：如果想要在飯店彈窗關閉後自動顯示介紹彈窗，取消下面的註解
+            // setTimeout(() => {
+            //     showIntroPopup();
+            // }, 800);
+            
         }, 50);
         
         // 載入留言
         loadComments();
     }, 500);
+}
+
+// === 修正：關閉飯店預訂彈窗 ===
+function closeHotelPopup() {
+    console.log('關閉飯店預訂彈窗');
+    const popup = document.getElementById('hotelBookingPopup');
+    if (popup) {
+        popup.style.display = 'none';
+        // 保持原本的 overflow hidden（因為你的網站本來就禁止滾動）
+        document.body.style.overflow = 'hidden';
+        
+        // 可選：飯店彈窗關閉後顯示介紹彈窗
+        // 如果你想要這個功能，取消下面的註解
+        // setTimeout(() => {
+        //     showIntroPopup();
+        // }, 300);
+    }
+}
+
+// === 新增：飯店預訂彈窗功能（移到檔案前面避免重複） ===
+// 顯示飯店預訂彈窗
+function showHotelPopup() {
+    console.log('顯示飯店預訂彈窗');
+    const popup = document.getElementById('hotelBookingPopup');
+    if (popup) {
+        popup.style.display = 'flex';
+        // 防止背景滾動（雖然你的網站本來就是 overflow: hidden）
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+// 前往預訂功能
+function goToBooking() {
+    console.log('前往預訂');
+    
+    // 方案一：開啟新視窗
+    window.open('https://www.surpriselab.com.tw/thegreattipsy?utm_campaign=tgtk&utm_source=Web_tgtk&utm_medium=Own&utm_content=knock');
+    
+    // 關閉彈窗
+    closeHotelPopup();
 }
 
 // === 新增：顯示介紹彈窗 ===
@@ -1082,6 +1129,11 @@ document.addEventListener('click', function(event) {
     const fullscreenContainer = document.getElementById('fullscreenGifContainer');
     const introPopup = document.getElementById('introPopup');
     const dotContentPopup = document.getElementById('dotContentPopup');
+    const hotelPopup = document.getElementById('hotelBookingPopup');
+  
+    if (hotelPopup && event.target.classList.contains('hotel-popup-overlay')) {
+        closeHotelPopup();
+    }
     
     // 關閉留言視窗
     if (popup && event.target === popup && popup.style.display === 'flex') {
@@ -1108,6 +1160,7 @@ document.addEventListener('click', function(event) {
 document.addEventListener('keydown', function(event) {
     // 按 ESC 鍵關閉彈窗
     if (event.key === 'Escape') {
+        closeHotelPopup();
         closeDotContent();
         closeComments();
         closeIntroPopup();
@@ -1155,3 +1208,5 @@ window.addEventListener('orientationchange', function() {
         repositionDots();
     }, 100);
 });
+
+
